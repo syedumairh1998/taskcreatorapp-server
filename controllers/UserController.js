@@ -14,7 +14,7 @@ export const createUser = async (request, response) => {
     }
     const userExists = await User.findOne({ name: user_name });
     if (userExists) {
-      return response.status(201).json({
+      return response.status(409).json({
         message: `This username is already taken. Please try different username`,
       });
     }
@@ -35,9 +35,10 @@ export const createUser = async (request, response) => {
     throw "Unable to create user";
   } catch (error) {
     console.log(error);
-    response
-      .status(201)
-      .json({ success: false, message: "Whoop! Something went wrong" });
+    return response.status(201).json({
+      success: false,
+      message: "Whoop! Something went wrong",
+    });
   }
 };
 
