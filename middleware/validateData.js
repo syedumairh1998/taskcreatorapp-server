@@ -10,6 +10,7 @@ export const validateUserData = (type) => {
           "password",
           "confirm_password",
         ];
+        body = request.body;
         break;
       case "user login":
         requiredPayloadKeys = ["user_name", "password"];
@@ -18,7 +19,6 @@ export const validateUserData = (type) => {
       default:
         break;
     }
-
     for (let i = 0; i < requiredPayloadKeys.length; i++) {
       if (!body[requiredPayloadKeys[i]]) {
         return response.status(400).json({
